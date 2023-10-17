@@ -25,11 +25,11 @@ if __name__ == '__main__':
 
     for data in result:
         if data['_id'] in methods:
-            print(f'    method {data["_id"]}: {data["count"]}')
+            print(f'\tmethod {data["_id"]}: {data["count"]}')
 
             methods.remove(data['_id'])
 
     for method in methods:
-        print(f'    method {method}: 0')
+        print(f'\tmethod {method}: 0')
 
     print(f'{len(list(nginx_col.find({"path": "/status"})))} status check')
