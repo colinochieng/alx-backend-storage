@@ -33,3 +33,22 @@ if __name__ == '__main__':
         print(f'    method {method}: 0')
 
     print(f'{len(list(nginx_col.find({"path": "/status"})))} status check')
+
+    pipe_2 = [
+            {
+                '$group': {
+                    '_id': '$ip',
+                    'count': {'$sum': 1}
+                    }
+                },
+            {
+                '$sort': {'count': -1}
+                },
+            {
+                '$limit': 10
+                }
+            ]
+    result = list(nginx_col.aggregate(pipe_2))
+    print('IPs:')
+    for ip in result:
+        print(f'    {ip["_id"]}: {ip["count"]}')
